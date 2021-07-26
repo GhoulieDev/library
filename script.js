@@ -8,15 +8,26 @@ function Book(title, author, pages, haveRead){
 }
 
 function addBookToLibrary(){
-    let title = prompt('Enter title');
-    let author = prompt('Enter author');
-    let pages = prompt('Enter pages');
-    let haveRead = prompt('Have you read? T/F');
-    const book = new Book(title, author, pages, haveRead)
-    myLibrary.push(book);
+    myLibrary.push(harry);
+    myLibrary.push(game);
+    myLibrary.push(witcher);
+    myLibrary.push(shan);
 }
 
+function displayBooks(library){
+    for(let book of library){
+        console.log(book.title)
+    }
+
+}
+
+const harry = new Book('Harry Potter', 'JK Rowling', '250', false)
+const game = new Book('Game Of Thrones', 'George RR', '650', true)
+const witcher = new Book('Witcher', 'Androv Sapjowski', '500', true)
+const shan = new Book('Cirque Du Freak', 'Darren Shan', '305', true)
+
 addBookToLibrary()
+displayBooks(myLibrary)
 
 
 
