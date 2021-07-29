@@ -6,37 +6,34 @@
         <link href='style.css' rel='stylesheet'>
     </head>
     <body>
-        <div id='info'>
-            <h1>Library</h1>
-        </div>
-        
-        <button id='add-book'>ADD BOOK</button>
-        
         <div id='library'>
          <!-- Book Cards will go here via JS -->   
         </div>
 
-        <form id='form-input-container'>
-            <h1>Add New Book</h1>
-            <div class='inputs-div'>
-                <label for='title'><p>Title:</p></label>
-                <input type='text' placeholder='Title' name='title' required>
-
-                <label for='author'><p>Author:</p></label>
-                <input type='text' placeholder='Author' name='author' required>
-
-                <label for='pages'><p>Pages:</p></label>
-                <input type='text' placeholder='Pages' name='pages' required>
-
-                <label for='read'><p>Read?</p></label>
-                <input type='checkbox' name='read'>
+        <form id='form'>
+            <div>
+                <label for='title'>Title</label>
+                <input type='text' name='title' id='title' placeholder='Title' required>
             </div>
-            
-            <div id='form-buttons'>
-                <button class='form-button submit'>Submit</button>
-                <button class='form-button cancel'>Cancel</button>
+            <div>
+                <label for='author'>Author</label>
+                <input type='text' name='author' id='author' placeholder='Author' required>
+            </div>
+            <div>
+                <label for='pages'>Pages</label>
+                <input type='number' name='pages' id='pages' placeholder='Pages' required>
+            </div>
+            <div>
+                <label for='read'>Read?</label>
+                <input type='checkbox' name='read' id='read'>
+            </div>
+            <div>
+                <button type='submit'>Submit</button>
+                <button type='reset'>Cancel</button>
             </div>
         </form>
+
+        
         
 
 

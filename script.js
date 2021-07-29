@@ -1,4 +1,11 @@
-const bookContainer = document.getElementById('library')
+const form = document.getElementById('form');
+const library = document.getElementById('library');
+
+form.addEventListener('submit', event => {
+    event.preventDefault();
+    addBookToLibrary();
+    form.reset();
+});
 
 let myLibrary = [];
 
@@ -10,32 +17,50 @@ function Book(title, author, pages, haveRead){
 }
 
 function addBookToLibrary(){
-    myLibrary.push(harry);
-    myLibrary.push(game);
-    myLibrary.push(witcher);
-    
-    
+   let title = document.getElementById('title').value;
+   let author = document.getElementById('author').value;
+   let pages = document.getElementById('pages').value;
+   let haveRead = document.getElementById('read').checked;
+   const book = new Book(title, author, pages, haveRead);
+   myLibrary.push(book);
+   displayBook(book);
 }
 
-function displayBooks(library){
-    for(let book of library){
-        
-        
+function displayBook(book){
+    const bookCard = document.createElement('div');
+    bookCard.classList.add('book-card');
+    const bookTitle = document.createElement('p');
+    bookTitle.textContent = book.title;
+    const bookAuthor = document.createElement('p');
+    bookAuthor.textContent = book.author;
+    const bookPages = document.createElement('p');
+    bookPages.textContent = book.pages;
+    const bookRead = document.createElement('button');
+    if(book.haveRead){
+        bookRead.textContent = 'Read';
+    }else{
+        bookRead.textContent = 'Not Read';
     }
-
+    bookCard.appendChild(bookTitle);
+    bookCard.appendChild(bookAuthor);
+    bookCard.appendChild(bookPages);
+    bookCard.appendChild(bookRead);
+    library.appendChild(bookCard)
 }
 
+function displayLibrary(library){
+    for(let book of library){
+        displayBook(book);
+    }
+}
 
+// const book = new Book('test1', 'test', '234', true);
+// myLibrary.push(book);
+// const book2 = new Book('test2', 'test', '234', false);
+// myLibrary.push(book2);
+// const book3 = new Book('test3', 'test', '234', true);
+// myLibrary.push(book3);
 
-const harry = new Book('Harry Potter', 'JK Rowling', '250', false)
-const game = new Book('Game Of Thrones', 'George RR', '650', true)
-const witcher = new Book('Witcher', 'Androv Sapjowski', '500', true)
-
-
-addBookToLibrary()
-displayBooks(myLibrary)
-
-
-
+displayLibrary(myLibrary);
 
 
