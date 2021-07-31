@@ -6,7 +6,7 @@
         <link href='style.css' rel='stylesheet'>
     </head>
     <body>
-        <h1>Library</h1>
+        <h1 id='page-title'>Library</h1>
         
         <button id='add-book'>ADD BOOK</button>
         
@@ -17,23 +17,26 @@
         </div>
 
         <form id='form'>
-            <div>
+            <div id='form-h1'>
+                <h1>Add New Book</h1>
+            </div>
+            <div class='form-input'>
                 <label for='title'>Title</label>
                 <input type='text' name='title' id='title' placeholder='Title' required>
             </div>
-            <div>
+            <div class='form-input'>
                 <label for='author'>Author</label>
                 <input type='text' name='author' id='author' placeholder='Author' required>
             </div>
-            <div>
+            <div class='form-input'>
                 <label for='pages'>Pages</label>
                 <input type='number' name='pages' id='pages' placeholder='Pages' required>
             </div>
-            <div>
+            <div class='form-input'>
                 <label for='read'>Read?</label>
                 <input type='checkbox' name='read' id='read'>
             </div>
-            <div>
+            <div id='form-buttons'>
                 <button type='submit' id='submit'>Submit</button>
                 <button type='reset' id='cancel'>Cancel</button>
             </div>

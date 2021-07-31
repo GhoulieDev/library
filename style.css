@@ -2,7 +2,7 @@ body{
     background-color: lightseagreen;
 }
 
-h1{
+#page-title{
     font-size: 50px;
     text-align: center;
     color: white;
@@ -27,6 +27,7 @@ h1{
     transform: scale(1.1);
     color: black;
 }
+
 #add-book:active{
     transform: translateY(1px);
 }
@@ -40,18 +41,76 @@ h1{
 }
 
 .book-card{
-    width: 200px;
+    width: 230px;
     height: 200px;
-    border: 1px solid black;
+    background-color: white;
     margin: 10px 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 5px 5px 5px 5px darkcyan;
+    overflow-wrap: break-word;
+}
+
+.book-card p {
+    font-size: 18px;
+    padding: 10px;
 }
 
 #form{
     display: none;
+    border: 3px solid black;
+    width: 300px;
+    height: 320px;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%);
+    z-index: 9;
+    background-color: white;
 }
 
+#form-h1{
+    background-color: lightgreen;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 3px solid black;
+}
 
+input {
+    width: 65%;
+    margin: 5px;
+}
 
+.form-input{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
+label{
+    margin-top: 5px;
+}
+
+#form-buttons{
+    text-align: center;
+}
+
+#form-buttons button{
+    margin: 10px;
+    width: 100px;
+    height: 40px;
+    border: 2px solid black;
+    font-size: 16px;
+}
+
+#submit{
+    background-color: lightgreen;
+}
+
+#cancel{
+    background-color: rgb(255, 122, 122);
+}
 
 
