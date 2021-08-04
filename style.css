@@ -51,6 +51,10 @@ body{
     overflow-wrap: break-word;
 }
 
+.book-card p:first-child{
+    height: 30px;
+}
+
 .book-card p {
     font-size: 18px;
     padding: 10px;

@@ -10,14 +10,12 @@ showForm.addEventListener('click', () => {
 cancelForm.addEventListener('click', closeForm);
 
 form.addEventListener('submit', event => {
-    //stops the default behaviour of a submitted form refreshing the page becuase currently thats not wanted behaviour
+    //Stops the default behaviour of a submitted form refreshing the page becuase currently thats not wanted behaviour
     event.preventDefault();
     addBookToLibrary();
     form.reset();
     closeForm();
 });
-
-let myLibrary = [];
 
 function Book(title, author, pages, haveRead){
     this.title = title;
@@ -27,7 +25,6 @@ function Book(title, author, pages, haveRead){
 }
 
 Book.prototype.toggleRead = function(event){
-    console.log(this)
     if(this.haveRead){
         event.target.textContent = 'Not Read'
         event.target.classList.remove('read');
@@ -38,20 +35,7 @@ Book.prototype.toggleRead = function(event){
         event.target.classList.add('read');  
     }
     this.haveRead = !this.haveRead;
-    console.log(this)
-    
-    // let id = event.target.parentNode.dataset.id;
-    // if(myLibrary[id].haveRead){
-    //     myLibrary[id].haveRead = !myLibrary[id].haveRead
-    //     event.target.textContent = 'Not Read'
-    //     event.target.classList.remove('read');
-    //     event.target.classList.add('not-read');
-    // }else{
-    //     myLibrary[id].haveRead = !myLibrary[id].haveRead
-    //     event.target.textContent = 'Read'
-    //     event.target.classList.remove('not-read');
-    //     event.target.classList.add('read'); 
-    // }
+    setStorage(myLibrary);
 }
 
 function addBookToLibrary(){
@@ -61,9 +45,10 @@ function addBookToLibrary(){
     let haveRead = document.getElementById('read').checked;
     const book = new Book(title, author, pages, haveRead);
     myLibrary.push(book);
-    //sets the id of a new book to be the last entry value of the array, as a new book will always be at the end
+    //Sets the id of a new book to be the last entry value of the array, as a new book will always be at the end
     let id = myLibrary.length-1;
     displayBook(book, id);
+    setStorage(myLibrary);
 }
 
 function displayBook(book, id){
@@ -85,7 +70,7 @@ function displayBook(book, id){
     bookPages.textContent = book.pages + ' pages';
 
     const bookRead = document.createElement('button');
-    //bind to pass in the book object for using with 'this' inside the toggleRead prototype method to prevent the default use of referencing the button
+    //Bind to pass in the book object for using with 'this' inside the toggleRead prototype method to prevent the default use of referencing the button
     bookRead.addEventListener('click', book.toggleRead.bind(book));
     if(book.haveRead){
         bookRead.textContent = 'Read';
@@ -108,12 +93,13 @@ function displayBook(book, id){
 }
 
 function removeBook(event){
-    //accesses the bookCard of the node that the remove button was fired on, removes it from the array of books via data-id
+    //Accesses the bookCard of the node that the remove button was fired on, removes it from the array of books via data-id
     myLibrary.splice(event.target.parentNode.dataset.id, 1);
     while(library.firstChild){
         library.removeChild(library.firstChild);
     }
     displayLibrary(myLibrary);
+    setStorage(myLibrary)
 }
 
 function displayLibrary(library){
@@ -126,4 +112,27 @@ function closeForm(){
     form.style.display = 'none'; 
 }
 
+//Local storage keys/values are always stored as strings so we need to make use of the stringify to send them and parse to receive them back into our program as objects
+function setStorage(array){
+    localStorage.setItem('library', JSON.stringify(array));
+}
+
+function getStorage(){
+    if(localStorage.library){
+        return JSON.parse(localStorage.getItem('library'));
+    }else{
+        return []
+    }
+}
+
+//When receiveing parsed objects back from local storage the prototype methods are lost so we use the Book constructor to remake them
+function reconstructLibrary(array){
+    return array.map(obj => {
+        const book = new Book(obj.title, obj.author, obj.pages, obj.haveRead);
+        return book;
+    })
+}
+
+let myLibrary = reconstructLibrary(getStorage());
+displayLibrary(myLibrary)
 
