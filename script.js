@@ -17,25 +17,27 @@ form.addEventListener('submit', event => {
     closeForm();
 });
 
-function Book(title, author, pages, haveRead){
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.haveRead = haveRead;
-}
-
-Book.prototype.toggleRead = function(event){
-    if(this.haveRead){
-        event.target.textContent = 'Not Read'
-        event.target.classList.remove('read');
-        event.target.classList.add('not-read');  
-    }else{
-        event.target.textContent = 'Read'
-        event.target.classList.remove('not-read');
-        event.target.classList.add('read');  
+class BookClass {
+    constructor(title, author, pages, haveRead){
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.haveRead = haveRead;
     }
-    this.haveRead = !this.haveRead;
-    setStorage(myLibrary);
+
+    toggleRead = (event) => {
+        if(this.haveRead){
+            event.target.textContent = 'Not Read'
+            event.target.classList.remove('read');
+            event.target.classList.add('not-read');  
+        }else{
+            event.target.textContent = 'Read'
+            event.target.classList.remove('not-read');
+            event.target.classList.add('read');  
+        }
+        this.haveRead = !this.haveRead;
+        setStorage(myLibrary);
+    }
 }
 
 function addBookToLibrary(){
@@ -43,7 +45,7 @@ function addBookToLibrary(){
     let author = document.getElementById('author').value;
     let pages = document.getElementById('pages').value;
     let haveRead = document.getElementById('read').checked;
-    const book = new Book(title, author, pages, haveRead);
+    const book = new BookClass(title, author, pages, haveRead);
     myLibrary.push(book);
     //Sets the id of a new book to be the last entry value of the array, as a new book will always be at the end
     let id = myLibrary.length-1;
@@ -71,7 +73,11 @@ function displayBook(book, id){
 
     const bookRead = document.createElement('button');
     //Bind to pass in the book object for using with 'this' inside the toggleRead prototype method to prevent the default use of referencing the button
-    bookRead.addEventListener('click', book.toggleRead.bind(book));
+    //bookRead.addEventListener('click', book.toggleRead.bind(book));
+
+    //No need for .bind now that I've converted to classes because the context of 'this' in the toggle read method has been bound to the object via the constructor
+    bookRead.addEventListener('click', book.toggleRead);
+   
     if(book.haveRead){
         bookRead.textContent = 'Read';
         bookRead.classList.add('read')
@@ -128,11 +134,11 @@ function getStorage(){
 //When receiveing parsed objects back from local storage the prototype methods are lost so we use the Book constructor to remake them
 function reconstructLibrary(array){
     return array.map(obj => {
-        const book = new Book(obj.title, obj.author, obj.pages, obj.haveRead);
+        const book = new BookClass(obj.title, obj.author, obj.pages, obj.haveRead);
         return book;
     })
 }
 
 let myLibrary = reconstructLibrary(getStorage());
-displayLibrary(myLibrary)
+displayLibrary(myLibrary);
 
